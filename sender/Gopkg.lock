@@ -3,6 +3,22 @@
 
 [[projects]]
   branch = "master"
+  digest = "1:0e5b66364c5559101d270c0ed5f0196ca6ce910cf89247b9315c6305f15f29d5"
+  name = "github.com/Pallinder/go-randomdata"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "15df0648130a623e418886f81b2aaecd0a00547b"
+
+[[projects]]
+  branch = "master"
+  digest = "1:29e2abad7e9df5d163124d5aaac5c339957532d522c2fb76af55ef1f521ead8b"
+  name = "github.com/mmcloughlin/spherand"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "fce52076af2aa00c746145ceae6d1c750726207d"
+
+[[projects]]
+  branch = "master"
   digest = "1:0c088044c1c1ee83e723692442df4fec9b3f2e57f7a99773485c97adfbc31695"
   name = "github.com/streadway/amqp"
   packages = ["."]
@@ -12,6 +28,10 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  input-imports = ["github.com/streadway/amqp"]
+  input-imports = [
+    "github.com/Pallinder/go-randomdata",
+    "github.com/mmcloughlin/spherand",
+    "github.com/streadway/amqp",
+  ]
   solver-name = "gps-cdcl"
   solver-version = 1
