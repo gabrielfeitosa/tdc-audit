@@ -2,9 +2,7 @@ package es
 
 import (
 	"context"
-	"encoding/json"
 	"os"
-	"time"
 
 	"github.com/olivere/elastic"
 )
@@ -45,23 +43,6 @@ const mapping = `{
 	}
  }`
 
-type Location struct {
-	Lat float64 `json:"lat"`
-	Lon float64 `json:"lon"`
-}
-
-type Audit struct {
-	ID            int64     `json:"id"`
-	IDCorrelation int       `json:"correlation_id"`
-	Module        string    `json:"module"`
-	Action        string    `json:"action"`
-	Login         string    `json:"login"`
-	TransactionAt time.Time `json:"transaction_at"`
-	Entity        string    `json:"entity"`
-	IP            string    `json:"ip"`
-	Location      Location  `json:"location"`
-}
-
 //ES instance of elastic search client
 type ES struct {
 	client *elastic.Client
@@ -84,17 +65,10 @@ func (es ES) createIndex() {
 //Send data to ES
 func (es ES) Send(body []byte) {
 
-	var audit Audit
-	err := json.Unmarshal(body, &audit)
-
-	if err != nil {
-		panic(err)
-	}
-
-	_, err = es.client.Index().
+	_, err := es.client.Index().
 		Index("audit").
 		Type("audit").
-		BodyJson(audit).
+		BodyString(string(body)).
 		Do(context.Background())
 
 	if err != nil {
@@ -117,12 +91,9 @@ func newClient() *elastic.Client {
 
 // New create a new instance of ES
 func New() ES {
-
 	es := ES{
 		client: newClient(),
 	}
-
 	es.createIndex()
-
 	return es
 }

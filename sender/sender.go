@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/json"
+	"fmt"
 	"log"
 	"math/rand"
 	"time"
@@ -51,14 +52,20 @@ func randCoord() Location {
 }
 
 func getCustomAudit() Audit {
-	modules := []string{"sysmanca", "systoca", "sysliga"}
+	modules := []string{"sys1", "sys2", "sys3", "sys4", "sys5"}
 	actions := []string{"create", "update", "delete"}
-	logins := []string{"fulano", "beltrano", "sicrano"}
-	entities := []string{"user", "profile", "item"}
+	logins := make([]string, 10)
+	for i := 0; i < len(logins); i++ {
+		logins[i] = fmt.Sprintf("login%d", i)
+	}
+	entities := make([]string, 30)
+	for i := 0; i < len(entities); i++ {
+		entities[i] = fmt.Sprintf("entity_%d", i)
+	}
 
 	return Audit{
 		ID:            rand.Int63n(100),
-		IDCorrelation: rand.Intn(20),
+		IDCorrelation: rand.Intn(1000),
 		Login:         random(logins),
 		Action:        random(actions),
 		Module:        random(modules),
@@ -107,6 +114,6 @@ func main() {
 		log.Printf(" [x] Sent %s", string(body))
 		failOnError(err, "Failed to publish a message")
 
-		time.Sleep(time.Duration(rand.Intn(1000)) * time.Millisecond)
+		time.Sleep(time.Duration(rand.Intn(10)) * time.Millisecond)
 	}
 }
