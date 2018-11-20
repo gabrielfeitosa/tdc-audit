@@ -8,8 +8,7 @@ import (
 )
 
 const (
-	amqpURI   = "amqp://guest:guest@localhost:5672/"
-	indexName = "audit"
+	amqpURI = "amqp://guest:guest@localhost:5672/"
 )
 
 func failOnError(err error, msg string) {

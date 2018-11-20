@@ -114,6 +114,6 @@ func main() {
 		log.Printf(" [x] Sent %s", string(body))
 		failOnError(err, "Failed to publish a message")
 
-		time.Sleep(time.Duration(rand.Intn(10)) * time.Millisecond)
+		time.Sleep(time.Duration(rand.Intn(500)) * time.Millisecond)
 	}
 }
